@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="company-dao" />
+        <module name="employee-api" />
+        <module name="employee-biz" />
+        <module name="employee-web" />
+        <module name="HR-RUN" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="1.5" />
+      <module name="company-dao" target="1.5" />
+      <module name="employee" target="1.5" />
+      <module name="employee-api" target="1.5" />
+      <module name="employee-biz" target="1.5" />
+      <module name="employee-web" target="1.5" />
+      <module name="HR-RUN" target="1.5" />
+      <module name="HRpractice" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
