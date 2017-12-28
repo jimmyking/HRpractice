@@ -16,5 +16,5 @@ public interface DepartmentMapper {
    //根据部门的名字查找子部门
     @Select("select * from department where depid =(select id from department where name = #{name})")
     Department[] selectDepart_in_department_byname(String depid);
-   // @Update("")
+
 }

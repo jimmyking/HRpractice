@@ -21,7 +21,7 @@ public class Company {
         SqlSession session = sqlSessionFactory.openSession();
 
         //添加部门
-    //    add_Department(session,3,"策划部门",2,1);
+      //  add_Department(session,3,"策划部门",2,1);
         //添加员工
       //  add_Employee(session,1,"杜甫",1,1);
         //新建公司
@@ -29,9 +29,11 @@ public class Company {
         //查找公司中的部门
       //  select_Depart_in_Company(session,1);
         //查找部门的子部门
-        select_Depart_in_depart(session,1);
+      //  select_Depart_in_depart(session,1);
         //查找部门员工
       //  select_Employee_in_deaprt(session,1);
+        //公司改名字
+        update_Company_name(session,"腾讯",2);
     }
     public static void add_Company(SqlSession session,String id,String name){
         try {
@@ -113,5 +115,16 @@ public class Company {
             session.close();
         }
 
+    }
+    public static void update_Company_name(SqlSession session,String name,int id){
+        try {
+            BlogMapper blogMapper = session.getMapper(BlogMapper.class);
+            blogMapper.update_Company_name(name,id);
+            session.commit();
+
+
+        } finally {
+            session.close();
+        }
     }
 }
