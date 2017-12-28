@@ -1,25 +1,23 @@
-
+package com.dao;
 
 public class Blog {
-    private String Id ;
-    private String name;
+    private String Id;
+
     public String getId() {
         return Id;
     }
 
     public void setId(String id) {
-        this.Id = id;
+        Id = id;
     }
 
-
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
-
-
+    private String Name;
 }
