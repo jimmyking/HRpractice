@@ -1,6 +1,11 @@
-package com.dao;
+package com.seendio.hr.dao.pojo;
 
 public class Department {
+    private int Id;
+    private String name;
+    private int Camid;
+    private int Empid;
+    private int Depid;
     public int getId() {
         return Id;
     }
@@ -33,10 +38,7 @@ public class Department {
         Empid = empid;
     }
 
-    private int Id;
-    private String name;
-    private int Camid;
-    private int Empid;
+
 
     public int getDepid() {
         return Depid;
@@ -46,5 +48,5 @@ public class Department {
         Depid = depid;
     }
 
-    private int Depid;
+
 }

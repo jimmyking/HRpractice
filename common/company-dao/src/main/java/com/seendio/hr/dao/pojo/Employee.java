@@ -1,9 +1,10 @@
-package com.dao;
+package com.seendio.hr.dao.pojo;
 
 public class Employee {
     private int Id;
     private String Name;
     private int Depid;
+    private int Empid;
 
     public int getId() {
         return Id;
@@ -37,5 +38,5 @@ public class Employee {
         Empid = empid;
     }
 
-    private int Empid;
+
 }

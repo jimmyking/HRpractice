@@ -1,7 +1,8 @@
-package com.dao;
+package com.seendio.hr.dao.pojo;
 
-public class Blog {
+public class Company {
     private String Id;
+    private String Name;
 
     public String getId() {
         return Id;
@@ -19,5 +20,5 @@ public class Blog {
         Name = name;
     }
 
-    private String Name;
+
 }

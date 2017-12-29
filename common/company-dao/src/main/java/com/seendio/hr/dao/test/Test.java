@@ -1,5 +1,12 @@
-package com.dao;
+package com.seendio.hr.dao.test;
 
+
+import com.seendio.hr.dao.mapper.CompanyMapper;
+import com.seendio.hr.dao.mapper.DepartmentMapper;
+import com.seendio.hr.dao.mapper.EmployeeMapper;
+import com.seendio.hr.dao.pojo.Company;
+import com.seendio.hr.dao.pojo.Department;
+import com.seendio.hr.dao.pojo.Employee;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -7,38 +14,42 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
-public class Company {
+public class Test {
     public static void main(String[] args) throws IOException {
-        // write your code here
 
+        //com.seendio.hr.dao.pojo.Blog
+        //com.seendio.hr.dao.mapper.BlogMapper
+        //com.seendio.hr.dao.test.Test
+        // write your code here
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        sqlSessionFactory.getConfiguration().addMapper(BlogMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(CompanyMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(DepartmentMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(EmployeeMapper.class);
         SqlSession session = sqlSessionFactory.openSession();
 
         //添加部门
-      //  add_Department(session,3,"策划部门",2,1);
+        //  addDepartment(session,3,"策划部门",2,1);
         //添加员工
-      //  add_Employee(session,1,"杜甫",1,1);
+        //  addEmployee(session,1,"杜甫",1,1);
         //新建公司
-      //   add_Company(session,"1","地表");
+        //  addCompany(session,"1","地表");
         //查找公司中的部门
-      //  select_Depart_in_Company(session,1);
+        selectDepartInCompany(session,1);
         //查找部门的子部门
-      //  select_Depart_in_depart(session,1);
+        //  selectDepartInDepart(session,1);
         //查找部门员工
-      //  select_Employee_in_deaprt(session,1);
+        //  selectEmployeeInDeaprt(session,1);
         //公司改名字
-        update_Company_name(session,"腾讯",2);
+        //  updateCompanyName(session,"哈哈哈",2);
     }
-    public static void add_Company(SqlSession session,String id,String name){
+    public static void addCompany(SqlSession session,String id,String name){
         try {
 
-            Blog blog = new Blog();
+            Company blog = new Company();
             blog.setName(name);
             blog.setId(id);
             session.update("mapper.BlogMapper.insertBlog",blog);
@@ -47,7 +58,7 @@ public class Company {
             session.close();
         }
     }
-    public static void add_Department(SqlSession session,int id,String name,int camid ,int empid){
+    public static void addDepartment(SqlSession session,int id,String name,int camid ,int empid){
         try {
 
             Department department = new Department();
@@ -61,7 +72,7 @@ public class Company {
             session.close();
         }
     }
-    public static void add_Employee(SqlSession session,int id,String name,int camid ,int empid){
+    public static void addEmployee(SqlSession session,int id,String name,int camid ,int empid){
         try {
 
             Employee employee = new Employee();
@@ -75,26 +86,22 @@ public class Company {
             session.close();
         }
     }
-    public static void select_Depart_in_Company(SqlSession session ,int camid){
+    public static void selectDepartInCompany(SqlSession session ,int camid){
         try {
-
-            //注解方式
-//            BlogMapper blogMapper = session.getMapper(BlogMapper.class);
-//            Blog user = blogMapper.selectBlog("2");
             DepartmentMapper departmentMapper = session.getMapper(DepartmentMapper.class);
-            Department[] department = departmentMapper.selectDepart_in_conpany(camid);
-            for (int i = 0;i<department.length;i++){
-                System.out.println(department[i].getName());
+            List<Department> department = departmentMapper. selectDepartInCompany(camid);
+            for (Department d:department){
+                System.out.println(d.getName());
             }
         } finally {
             session.close();
         }
     }
-    public static void select_Depart_in_depart(SqlSession session,int depid){
+    public static void selectDepartInDepart(SqlSession session,int depid){
         try {
 
             DepartmentMapper departmentMapper = session.getMapper(DepartmentMapper.class);
-            Department[] department = departmentMapper.selectDepart_in_department(depid);
+            Department[] department = departmentMapper.selectDepartInDepartment(depid);
             for (int i = 0;i<department.length;i++){
                 System.out.println(department[i].getName());
             }
@@ -103,11 +110,11 @@ public class Company {
         }
 
     }
-    public static void select_Employee_in_deaprt(SqlSession session,int depid){
+    public static void selectEmployeeInDeaprt(SqlSession session,int depid){
         try {
 
             EmployeeMapper employeeMapper = session.getMapper(EmployeeMapper.class);
-            Employee[] employees = employeeMapper.selectEmployee_in_department(depid);
+            Employee[] employees = employeeMapper.selectEmployeeInDepartment(depid);
             for (int i = 0;i<employees.length;i++){
                 System.out.println(employees[i].getName());
             }
@@ -116,15 +123,18 @@ public class Company {
         }
 
     }
-    public static void update_Company_name(SqlSession session,String name,int id){
+    public static void updateCompanyName(SqlSession session,String name,int id){
         try {
-            BlogMapper blogMapper = session.getMapper(BlogMapper.class);
-            blogMapper.update_Company_name(name,id);
+            CompanyMapper blogMapper = session.getMapper(CompanyMapper.class);
+            blogMapper.updateCompanyName(name,id);
             session.commit();
 
 
         } finally {
             session.close();
         }
+    }
+    public static void uodateEmployeeDepartment(SqlSession session,int depid){
+
     }
 }
