@@ -1,6 +1,7 @@
 package com.seendio.hr.dao.mapper;
 
-import com.dao.Department;
+
+import com.seendio.hr.dao.pojo.Department;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -25,7 +26,7 @@ public interface DepartmentMapper {
      *
      */
     @Select("select * from department where camid =(select id from campany where name = #{name})")
-    Department[] selectDepartInCompanyByName(@Param("name") String name);
+   List <Department> selectDepartInCompanyByName(@Param("name") String name);
     /**
      * 1.查找公司中的部门
      * @param depid
