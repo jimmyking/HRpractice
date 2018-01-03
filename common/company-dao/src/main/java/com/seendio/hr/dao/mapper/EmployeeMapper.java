@@ -2,10 +2,7 @@ package com.seendio.hr.dao.mapper;
 
 
 import com.seendio.hr.dao.pojo.Employee;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 /**
  * @author Administrator
@@ -41,6 +38,12 @@ public interface EmployeeMapper {
     @Insert("INSERT INTO employee(name,camid,depid,empid) VALUES(#{name},#{camid},#{depid},#{empid})")
     void insertEmployee(@Param(value = "name" )String name,@Param(value = "camid")int camid,@Param(value = "depid")int depid,@Param(value = "empid")int empid);
 
-
+    /**
+     * 删除员工
+     * @param name
+     * @param id
+     */
+    @Delete("delete from employee where name =#{name} and id = #{id}")
+    void deleteCompany(@Param(value = "name") String name, @Param(value="id") int id);
 
 }

@@ -4,9 +4,11 @@ package com.seendio.hr.dao.test;
 import com.seendio.hr.dao.mapper.CompanyMapper;
 import com.seendio.hr.dao.mapper.DepartmentMapper;
 import com.seendio.hr.dao.mapper.EmployeeMapper;
+import com.seendio.hr.dao.mapper.NodeMapper;
 import com.seendio.hr.dao.pojo.Company;
 import com.seendio.hr.dao.pojo.Department;
 import com.seendio.hr.dao.pojo.Employee;
+import com.seendio.hr.dao.pojo.Node;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -29,6 +31,7 @@ public class Test {
         sqlSessionFactory.getConfiguration().addMapper(CompanyMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(DepartmentMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(EmployeeMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(NodeMapper.class);
         SqlSession session = sqlSessionFactory.openSession();
 
         //添加部门
@@ -38,13 +41,16 @@ public class Test {
         //新建公司
         //  addCompany(session,"1","地表");
         //查找公司中的部门
-        selectDepartInCompany(session,1);
+       //selectDepartInCompany(session,1);
         //查找部门的子部门
         //  selectDepartInDepart(session,1);
         //查找部门员工
         //  selectEmployeeInDeaprt(session,1);
         //公司改名字
         //  updateCompanyName(session,"哈哈哈",2);
+        //树查找测试
+        selectTree(session);
+
     }
     public static void addCompany(SqlSession session,String id,String name){
         try {
@@ -90,6 +96,7 @@ public class Test {
         try {
             DepartmentMapper departmentMapper = session.getMapper(DepartmentMapper.class);
             List<Department> department = departmentMapper. selectDepartInCompany(camid);
+
             for (Department d:department){
                 System.out.println(d.getName());
             }
@@ -134,7 +141,32 @@ public class Test {
             session.close();
         }
     }
-    public static void uodateEmployeeDepartment(SqlSession session,int depid){
+    public static void updateEmployeeDepartment(SqlSession session,int depid){
 
+    }
+    public static void selectTree(SqlSession session){
+        try {
+
+
+        NodeMapper nodeMapper = session.getMapper(NodeMapper.class);
+        List<Node> nodes = nodeMapper.selectDepTree();
+        List<Node> nodes1 = new TreeBuilder(nodes).buildTree();
+        int i= 0;
+            for (Node d:nodes1){
+                i++;
+                System.out.println(d.getName()+"--"+i);
+                for (Node m:d.getChildren()){
+                    System.out.println(m.getName()+"--");
+                    if (m.getChildren()!=null){
+                    for (Node n:m.getChildren()){
+                        System.out.println(n.getName()+"-");
+                    }
+                    }
+                }
+            }
+
+        }finally {
+            session.close();
+        }
     }
 }

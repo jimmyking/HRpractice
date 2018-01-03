@@ -2,6 +2,7 @@ package com.seendio.hr.dao.mapper;
 
 
 import com.seendio.hr.dao.pojo.Department;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -25,6 +26,7 @@ public interface DepartmentMapper {
      * @return
      *
      */
+   // @Select("select *from [Book] as b inner join [Student] as s ON b.StudentId=s.StudentId")
     @Select("select * from department where camid =(select id from campany where name = #{name})")
    List <Department> selectDepartInCompanyByName(@Param("name") String name);
     /**
@@ -56,4 +58,11 @@ public interface DepartmentMapper {
     @Insert("INSERT INTO department(name,camid,depid,empid) VALUES(#{name},#{camid},#{depid},#{empid})")
     void insertDepartment(@Param(value = "name" )String name,@Param(value = "camid")int camid,@Param(value = "depid")int depid,@Param(value = "empid")int empid);
 
+    /**
+     * 删除部门
+     * @param name
+     * @param id
+     */
+    @Delete("delete from department where name =#{name} and id = #{id}")
+    void deleteCompany(@Param(value = "name") String name, @Param(value="id") int id);
 }

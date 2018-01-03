@@ -1,5 +1,6 @@
 package com.seendio.hr.dao.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -20,4 +21,12 @@ public interface CompanyMapper {
      */
     @Insert("INSERT INTO campany(name) VALUES(#{name})")
     void insertCompany(@Param(value = "name" )String name);
+
+    /**
+     * 删除部门
+     * @param name
+     * @param id 部门id
+     */
+    @Delete("delete from campany where name =#{name} and id = #{id}")
+    void deleteCompany(@Param(value = "name") String name, @Param(value="id") int id);
 }
